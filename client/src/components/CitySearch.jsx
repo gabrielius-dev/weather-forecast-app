@@ -35,11 +35,11 @@ export default function CitySearch({ onCitySelect }) {
       titleText="City"
       placeholder="Search for a city…"
       items={items}
-      itemToString={(item) =>
-        item
-          ? `${item.name}${item.admin1 ? `, ${item.admin1}` : ""}, ${item.country}`
-          : ""
-      }
+      itemToString={(item) => {
+        if (!item) return "";
+        const parts = [item.name, item.admin1, item.country].filter(Boolean);
+        return parts.join(", ");
+      }}
       onInputChange={handleInputChange}
       onChange={handleChange}
       shouldFilterItem={() => true}
