@@ -12,6 +12,8 @@
   "dependencies": {
     "@carbon/icons-react": "^11.81.0",
     "@carbon/react": "^1.108.0",
+    "@meteocons/svg": "^0.1.0",
+    "@meteocons/svg-static": "^0.1.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "sass": "^1.100.0"
