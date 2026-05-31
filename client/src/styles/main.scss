@@ -1,7 +1,34 @@
 @use "config";
 @use "variables";
+@use "@carbon/react/scss/type";
 
 body {
   background: var(--cds-background);
   color: var(--cds-text-primary);
+}
+
+.metric-label {
+  @include type.type-style("label-01");
+  margin: 0 0 var(--cds-spacing-02);
+  color: var(--cds-text-secondary);
+}
+
+.metric-value {
+  @include type.type-style("heading-04");
+  margin: 0;
+}
+
+.hero-temp {
+  @include type.type-style("fluid-display-01", true);
+  margin: 0;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--cds-spacing-05);
+}
+
+.hero-tile {
+  height: 100%;
 }

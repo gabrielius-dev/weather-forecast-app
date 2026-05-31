@@ -4,7 +4,6 @@ import { searchCities } from "../services/geocodingApi";
 
 export default function CitySearch({ onCitySelect }) {
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const debounceTimer = useRef();
 
@@ -17,14 +16,11 @@ export default function CitySearch({ onCitySelect }) {
     }
 
     debounceTimer.current = setTimeout(async () => {
-      setLoading(true);
       setError(null);
       try {
         setItems(await searchCities(input));
       } catch (e) {
         setError(e.message);
-      } finally {
-        setLoading(false);
       }
     }, 300);
   }
@@ -47,8 +43,6 @@ export default function CitySearch({ onCitySelect }) {
       onInputChange={handleInputChange}
       onChange={handleChange}
       shouldFilterItem={() => true}
-      warn={loading}
-      warnText="Searching…"
       invalid={!!error}
       invalidText={error ?? ""}
     />
