@@ -1,7 +1,7 @@
 @use "config";
 @use "variables";
-@use "@carbon/react";
 
 body {
-  background-color: var(--cds-background);
+  background: var(--cds-background);
+  color: var(--cds-text-primary);
 }

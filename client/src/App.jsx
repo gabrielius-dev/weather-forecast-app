@@ -1,19 +1,24 @@
-import { Button, Header, HeaderName, Content } from "@carbon/react";
+import { useState, useEffect } from "react";
+import { GlobalTheme } from "@carbon/react";
+import AppShell from "./AppShell";
+
+const THEMES = ["cds--white", "cds--g10", "cds--g90", "cds--g100"];
 
 export default function App() {
+  const [theme, setTheme] = useState("g100");
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.remove(...THEMES);
+    root.classList.add(`cds--${theme}`);
+  }, [theme]);
+
+  const toggleTheme = () =>
+    setTheme((current) => (current === "g100" ? "g10" : "g100"));
+
   return (
-    <>
-      <Header aria-label="Weather Forecast">
-        <HeaderName href="#" prefix="IBM">
-          Weather Forecast
-        </HeaderName>
-      </Header>
-      <Content>
-        <h1>Carbon testing</h1>
-        <Button>Primary action</Button>
-        <Button kind="secondary">Secondary</Button>
-        <Button kind="danger">Danger</Button>
-      </Content>
-    </>
+    <GlobalTheme theme={theme}>
+      <AppShell theme={theme} toggleTheme={toggleTheme} />
+    </GlobalTheme>
   );
 }
