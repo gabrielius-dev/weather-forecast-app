@@ -5,7 +5,6 @@ import {
 } from "@carbon/react";
 import WeatherIcon from "./WeatherIcon";
 import { wmoToLabel } from "../utils/wmoToIcon";
-import { useEffect } from "react";
 
 function weekday(dateStr) {
   return new Date(`${dateStr}T12:00`).toLocaleDateString("en-US", {
@@ -23,9 +22,6 @@ function hour(timeStr) {
 
 export default function ForecastCard({ day, hourly, expanded, onToggle }) {
   const condition = wmoToLabel(day.weatherCode);
-  useEffect(() => {
-    console.log(hourly);
-  }, [hourly]);
 
   return (
     <ExpandableTile
