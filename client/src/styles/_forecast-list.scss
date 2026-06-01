@@ -1,0 +1,16 @@
+@use "@carbon/react/scss/breakpoint" as *;
+@use "@carbon/react/scss/spacing" as *;
+
+.forecast-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-06;
+  align-items: start;
+
+  @include breakpoint("md") {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include breakpoint("lg") {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

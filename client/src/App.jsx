@@ -12,6 +12,7 @@ import AppShell from "./AppShell";
 import CitySearch from "./components/CitySearch";
 import { fetchWeather } from "./services/weatherAPI";
 import CurrentConditions from "./components/CurrentConditions";
+import ForecastList from "./components/ForecastList";
 
 const THEMES = ["cds--white", "cds--g10", "cds--g90", "cds--g100"];
 
@@ -37,6 +38,7 @@ export default function App() {
       try {
         const data = await fetchWeather(selectedCity);
         setWeather(data);
+        console.log(data);
       } catch (e) {
         setError(e.message);
         setWeather(null);
@@ -76,7 +78,16 @@ export default function App() {
             />
           )}
           {weather && !loading && (
-            <CurrentConditions city={selectedCity} current={weather.current} />
+            <>
+              <CurrentConditions
+                city={selectedCity}
+                current={weather.current}
+              />
+              <ForecastList
+                daily={weather.daily.slice(1)}
+                hourlyByDay={weather.hourlyByDay}
+              />
+            </>
           )}
         </Stack>
       </Content>

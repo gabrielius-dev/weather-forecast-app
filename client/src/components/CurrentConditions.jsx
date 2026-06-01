@@ -31,8 +31,8 @@ export default function CurrentConditions({ city, current }) {
   const condition = wmoToLabel(current.weatherCode);
 
   return (
-    <Grid className="current-conditions" withRowGap={2}>
-      <Column sm={4} md={4} lg={8}>
+    <Grid>
+      <Column className="hero-column" sm={4} md={4} lg={8}>
         <Tile className="hero-tile">
           <div>
             <p className="hero-city">{city.name}</p>

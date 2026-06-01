@@ -22,7 +22,7 @@ export async function fetchWeather({ lat, lon }) {
       "temperature_2m_max",
       "temperature_2m_min",
       "weather_code",
-      "precipitation_sum",
+      "precipitation_probability_max",
       "wind_speed_10m_max",
     ].join(","),
   );
@@ -58,7 +58,7 @@ function transform({ current, daily, hourly }) {
       tempMax: daily.temperature_2m_max[i],
       tempMin: daily.temperature_2m_min[i],
       weatherCode: daily.weather_code[i],
-      precipitationSum: daily.precipitation_sum[i],
+      precipProbabilityMax: daily.precipitation_probability_max[i],
       windSpeedMax: daily.wind_speed_10m_max[i],
     })),
     hourlyByDay: hourly.time.reduce((acc, isoTime, i) => {
