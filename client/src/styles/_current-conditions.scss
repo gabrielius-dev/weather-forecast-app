@@ -8,9 +8,11 @@
   flex-direction: column;
 }
 
-@include breakpoint-down("md") {
-  .hero-column {
-    margin-bottom: $spacing-06;
+.hero-column {
+  margin-bottom: $spacing-06;
+
+  @include breakpoint("md") {
+    margin-bottom: 0;
   }
 }
 
