@@ -1,0 +1,48 @@
+@use "@carbon/react/scss/type";
+@use "@carbon/react/scss/spacing" as *;
+@use "@carbon/react/scss/breakpoint" as *;
+
+.most-viewed-label {
+  @include type.type-style("label-01");
+  color: var(--cds-text-secondary);
+  margin: 0 0 $spacing-03;
+}
+
+.most-viewed-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-03;
+
+  @include breakpoint("md") {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.most-viewed-tile {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-02;
+  min-width: 0;
+}
+
+.most-viewed-name {
+  @include type.type-style("heading-compact-01");
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.most-viewed-region {
+  @include type.type-style("label-01");
+  color: var(--cds-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.most-viewed {
+  margin-top: $spacing-05;
+  @include breakpoint("lg") {
+    margin-top: 0;
+  }
+}

@@ -4,7 +4,6 @@ import {
   Content,
   GlobalTheme,
   Grid,
-  InlineLoading,
   InlineNotification,
   Stack,
 } from "@carbon/react";
@@ -13,20 +12,47 @@ import CitySearch from "./components/CitySearch";
 import { fetchWeather } from "./services/weatherAPI";
 import CurrentConditions from "./components/CurrentConditions";
 import ForecastList from "./components/ForecastList";
+import useMostViewed from "./hooks/useMostViewed";
+import MostViewedCities from "./components/MostViewedCities";
+import WeatherSkeleton from "./components/WeatherSkeleton";
 
 const THEMES = ["cds--white", "cds--g10", "cds--g90", "cds--g100"];
 
 export default function App() {
-  const [theme, setTheme] = useState("g100");
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem("wf:theme") ?? "g100";
+    } catch {
+      return "g100";
+    }
+  });
   const [selectedCity, setSelectedCity] = useState(null);
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { topCities, recordView } = useMostViewed();
+  const [showSkeleton, setShowSkeleton] = useState(false);
+
+  useEffect(() => {
+    if (!loading) return;
+
+    const timer = setTimeout(() => setShowSkeleton(true), 200);
+    return () => {
+      clearTimeout(timer);
+      setShowSkeleton(false);
+    };
+  }, [loading]);
 
   useEffect(() => {
     const root = document.documentElement;
     root.classList.remove(...THEMES);
     root.classList.add(`cds--${theme}`);
+
+    try {
+      localStorage.setItem("wf:theme", theme);
+    } catch {
+      // storage unavailable; ignore
+    }
   }, [theme]);
 
   useEffect(() => {
@@ -38,7 +64,6 @@ export default function App() {
       try {
         const data = await fetchWeather(selectedCity);
         setWeather(data);
-        console.log(data);
       } catch (e) {
         setError(e.message);
         setWeather(null);
@@ -56,6 +81,7 @@ export default function App() {
   function handleCitySelect(city) {
     setSelectedCity(city);
     setWeather(null);
+    recordView(city);
   }
 
   return (
@@ -63,19 +89,31 @@ export default function App() {
       <AppShell theme={theme} toggleTheme={toggleTheme} />
       <Content>
         <Stack gap={6}>
-          <Grid>
+          <Grid className="search-row">
             <Column sm={4} md={8} lg={8}>
               <CitySearch onCitySelect={handleCitySelect} />
             </Column>
+            {topCities.length > 0 && (
+              <Column sm={4} md={8} lg={8}>
+                <MostViewedCities
+                  topCities={topCities}
+                  onSelect={handleCitySelect}
+                />
+              </Column>
+            )}
           </Grid>
-          {loading && <InlineLoading description="Loading weather…" />}
+          {showSkeleton && <WeatherSkeleton />}
           {error && (
-            <InlineNotification
-              kind="error"
-              lowContrast
-              title="Error"
-              subtitle={error}
-            />
+            <Grid>
+              <Column sm={4} md={8} lg={16}>
+                <InlineNotification
+                  kind="error"
+                  lowContrast
+                  title="Error"
+                  subtitle={error}
+                />
+              </Column>
+            </Grid>
           )}
           {weather && !loading && (
             <>
