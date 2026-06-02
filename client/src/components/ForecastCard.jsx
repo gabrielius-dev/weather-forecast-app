@@ -5,20 +5,7 @@ import {
 } from "@carbon/react";
 import WeatherIcon from "./WeatherIcon";
 import { wmoToLabel } from "../utils/wmoToIcon";
-
-function weekday(dateStr) {
-  return new Date(`${dateStr}T12:00`).toLocaleDateString("en-US", {
-    weekday: "short",
-  });
-}
-
-function hour(timeStr) {
-  return new Date(timeStr).toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: false,
-  });
-}
+import { formatHour, formatWeekday } from "../utils/datetime";
 
 export default function ForecastCard({ day, hourly, expanded, onToggle }) {
   const condition = wmoToLabel(day.weatherCode);
@@ -33,7 +20,7 @@ export default function ForecastCard({ day, hourly, expanded, onToggle }) {
     >
       <TileAboveTheFoldContent>
         <div className="forecast-summary">
-          <p className="forecast-day">{weekday(day.date)}</p>
+          <p className="forecast-day">{formatWeekday(day.date)}</p>
           <WeatherIcon
             code={day.weatherCode}
             isDay
@@ -52,7 +39,7 @@ export default function ForecastCard({ day, hourly, expanded, onToggle }) {
         <div className="hourly-strip">
           {hourly.map((info) => (
             <div className="hourly-cell" key={info.time}>
-              <span className="hourly-time">{hour(info.time)}</span>
+              <span className="hourly-time">{formatHour(info.time)}</span>
               <WeatherIcon
                 code={info.weatherCode}
                 isDay={info.isDay}

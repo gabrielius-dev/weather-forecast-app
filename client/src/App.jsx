@@ -15,6 +15,7 @@ import ForecastList from "./components/ForecastList";
 import useMostViewed from "./hooks/useMostViewed";
 import MostViewedCities from "./components/MostViewedCities";
 import WeatherSkeleton from "./components/WeatherSkeleton";
+import HourlyStrip from "./components/HourlyStrip";
 
 const THEMES = ["cds--white", "cds--g10", "cds--g90", "cds--g100"];
 
@@ -121,6 +122,7 @@ export default function App() {
                 city={selectedCity}
                 current={weather.current}
               />
+              <HourlyStrip hourlyByDay={weather.hourlyByDay} />
               <ForecastList
                 daily={weather.daily.slice(1)}
                 hourlyByDay={weather.hourlyByDay}

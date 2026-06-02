@@ -1,0 +1,26 @@
+@use "@carbon/react/scss/type";
+@use "@carbon/react/scss/spacing" as *;
+
+.hourly-strip {
+  display: flex;
+  gap: $spacing-04;
+  overflow-x: auto;
+  padding-top: $spacing-03;
+}
+
+.hourly-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-02;
+  min-width: 3.5rem;
+}
+
+.hourly-time,
+.hourly-temp,
+.hourly-precip {
+  @include type.type-style("label-01");
+}
+.hourly-precip {
+  color: var(--cds-text-secondary);
+}

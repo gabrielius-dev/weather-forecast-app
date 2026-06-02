@@ -3,6 +3,9 @@
 @use "current-conditions";
 @use "forecast-list";
 @use "forecast-card";
+@use "most-viewed";
+@use "weather-skeleton";
+@use "hourly-strip";
 
 body {
   background: var(--cds-background);
