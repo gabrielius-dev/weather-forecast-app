@@ -13,6 +13,11 @@ export default function WeatherSkeleton() {
       </Grid>
       <Grid>
         <Column sm={4} md={8} lg={16}>
+          <SkeletonPlaceholder className="skeleton-hourly" />
+        </Column>
+      </Grid>
+      <Grid>
+        <Column sm={4} md={8} lg={16}>
           <div className="forecast-grid">
             {Array.from({ length: 5 }).map((_, i) => (
               <SkeletonPlaceholder key={i} className="skeleton-forecast" />
