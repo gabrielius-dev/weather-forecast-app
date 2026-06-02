@@ -52,9 +52,13 @@
 }
 
 .hero-temp {
-  @include type.type-style("fluid-display-01", true);
+  @include type.type-style("heading-05");
   margin: 0;
   line-height: 1;
+
+  @include breakpoint("lg") {
+    @include type.type-style("fluid-display-01", true);
+  }
 }
 
 .metric-panel {
@@ -79,4 +83,8 @@
 .metric-value {
   @include type.type-style("heading-04");
   margin: 0;
+}
+
+.metric-unit {
+  white-space: nowrap;
 }

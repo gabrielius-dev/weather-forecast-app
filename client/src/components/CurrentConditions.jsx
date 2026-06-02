@@ -9,7 +9,7 @@ import barometer from "@meteocons/svg-static/line/barometer.svg?url";
 
 const METRIC_ICONS = { thermometer, wind, humidity, barometer };
 
-function Metric({ icon, label, value }) {
+function Metric({ icon, label, value, unit }) {
   return (
     <div>
       <div className="metric-head">
@@ -22,7 +22,15 @@ function Metric({ icon, label, value }) {
         />
         <span className="metric-label">{label}</span>
       </div>
-      <p className="metric-value">{value}</p>
+      <p className="metric-value">
+        {value}
+        {unit && (
+          <>
+            {" "}
+            <span className="metric-unit">{unit}</span>
+          </>
+        )}
+      </p>
     </div>
   );
 }
@@ -67,7 +75,8 @@ export default function CurrentConditions({ city, current }) {
           <Metric
             icon="wind"
             label="Wind"
-            value={`${current.windSpeed} km/h`}
+            value={current.windSpeed}
+            unit="km/h"
           />
           <Metric
             icon="humidity"
@@ -77,7 +86,8 @@ export default function CurrentConditions({ city, current }) {
           <Metric
             icon="barometer"
             label="Pressure"
-            value={`${current.pressure} hPa`}
+            value={current.pressure}
+            unit="hPa"
           />
         </Tile>
       </Column>
