@@ -41,12 +41,14 @@ export default function CurrentConditions({ city, current }) {
             </p>
           </div>
           <div className="hero-main">
-            <WeatherIcon
-              code={current.weatherCode}
-              isDay={current.isDay}
-              size={96}
-              label={condition}
-            />
+            <div className="hero-icon">
+              <WeatherIcon
+                code={current.weatherCode}
+                isDay={current.isDay}
+                size={96}
+                label={condition}
+              />
+            </div>
             <div className="hero-readout">
               <p className="hero-temp">{current.temperature}°C</p>
               <Tag type="blue">{condition}</Tag>
