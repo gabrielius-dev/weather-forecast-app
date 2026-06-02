@@ -9,7 +9,7 @@ import {
 } from "@carbon/react";
 import AppShell from "./AppShell";
 import CitySearch from "./components/CitySearch";
-import { fetchWeather } from "./services/weatherAPI";
+import { fetchWeather } from "./services/weatherApi";
 import CurrentConditions from "./components/CurrentConditions";
 import ForecastList from "./components/ForecastList";
 import useMostViewed from "./hooks/useMostViewed";
