@@ -34,6 +34,7 @@ export default function App() {
   const [error, setError] = useState(null);
   const { topCities, recordView } = useMostViewed();
   const [showSkeleton, setShowSkeleton] = useState(false);
+  const [searchKey, setSearchKey] = useState(0);
 
   useEffect(() => {
     if (!loading) return;
@@ -75,7 +76,7 @@ export default function App() {
     }
 
     loadWeather();
-  }, [selectedCity]);
+  }, [searchKey, selectedCity]);
 
   const toggleTheme = () =>
     setTheme((current) => (current === "g100" ? "g10" : "g100"));
@@ -83,6 +84,7 @@ export default function App() {
   function handleCitySelect(city) {
     setSelectedCity(city);
     setWeather(null);
+    setSearchKey((k) => k + 1);
     recordView(city);
     logCitySelection(city).catch((err) => {
       console.warn("Failed to log city selection", err);
@@ -96,7 +98,10 @@ export default function App() {
         <Stack gap={6}>
           <Grid className="search-row">
             <Column sm={4} md={8} lg={8}>
-              <CitySearch onCitySelect={handleCitySelect} />
+              <CitySearch
+                onCitySelect={handleCitySelect}
+                searchKey={searchKey}
+              />
             </Column>
             {topCities.length > 0 && (
               <Column sm={4} md={8} lg={8}>

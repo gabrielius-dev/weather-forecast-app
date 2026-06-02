@@ -2,7 +2,7 @@ import { ComboBox } from "@carbon/react";
 import { useRef, useState } from "react";
 import { searchCities } from "../services/geocodingApi";
 
-export default function CitySearch({ onCitySelect }) {
+export default function CitySearch({ onCitySelect, searchKey }) {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
   const debounceTimer = useRef();
@@ -31,6 +31,7 @@ export default function CitySearch({ onCitySelect }) {
 
   return (
     <ComboBox
+      key={searchKey}
       id="city-search"
       titleText="City"
       placeholder="Search for a city…"
