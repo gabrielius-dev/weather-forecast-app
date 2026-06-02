@@ -16,6 +16,7 @@ import useMostViewed from "./hooks/useMostViewed";
 import MostViewedCities from "./components/MostViewedCities";
 import WeatherSkeleton from "./components/WeatherSkeleton";
 import HourlyStrip from "./components/HourlyStrip";
+import { logCitySelection } from "./services/logApi";
 
 const THEMES = ["cds--white", "cds--g10", "cds--g90", "cds--g100"];
 
@@ -83,6 +84,9 @@ export default function App() {
     setSelectedCity(city);
     setWeather(null);
     recordView(city);
+    logCitySelection(city).catch((err) => {
+      console.warn("Failed to log city selection", err);
+    });
   }
 
   return (
