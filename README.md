@@ -36,25 +36,39 @@ Application Developer internship task.
 
 ### Setup
 
+**1. Install dependencies**
+
 ```bash
-# Install dependencies
 cd client && npm install
 cd ../server && npm install
-
-# Start PostgreSQL
-docker-compose up -d
-
-# Run schema
-psql $DATABASE_URL < server/src/db/schema.sql
-
-# Start dev servers (two terminals)
-npm run dev:client
-npm run dev:server
+cd ..
 ```
 
-### Environment variables
+**2. Configure environment**
 
-Copy `.env.example` to `.env` in the server folder:
+Copy `server/.env.example` to `server/.env` and fill in the values.
+
+**3. Start PostgreSQL**
+
+```bash
+docker-compose up -d
+```
+
+**4. Run database schema**
+
+```bash
+psql postgresql://postgres:postgres@localhost:5432/weatherapp < server/src/db/schema.sql
+```
+
+**5. Start dev servers** (two separate terminals)
+
+```bash
+npm run dev:client
+```
+
+```bash
+npm run dev:server
+```
 
 ## Testing
 
